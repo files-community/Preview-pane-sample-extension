@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4"
+  IgnorableNamespaces="uap mp uap3 uap4">
+
+  <Identity
+    Name="8093bc22-ab8b-4711-ad9a-4dae1269cede"
+    Publisher="CN=winis"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="8093bc22-ab8b-4711-ad9a-4dae1269cede" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>PreviewPaneExtensionSample</DisplayName>
+    <PublisherDisplayName>winis</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="PreviewPaneExtensionSample.App">
+      <uap:VisualElements
+        DisplayName="PreviewPaneExtensionSample"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="PreviewPaneExtensionSample"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="com.files.filepreview"
+                             Id="markdown"
+                             DisplayName="Markdown File Preview"
+                             Description="Adds support for viewing Markdown Files in the preview pane."
+                             PublicFolder="Public">
+            <uap3:Properties>
+              <Service>com.markdownpreview.controlservice</Service>
+            </uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="FilePreviewService.Preview">
+          <uap:AppService Name="com.markdownpreview.controlservice" />
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
