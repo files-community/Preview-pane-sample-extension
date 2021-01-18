@@ -77,3 +77,6 @@ This is an example of valid Json data that can be used by Files.
   }
 ]
 ```
+
+## Specifying file types
+Preview extensions can specify the types of files they support by adding them to a json list in a file named ```FileExtensions.json``` in the extension's public folder.
