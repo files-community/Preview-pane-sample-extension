@@ -1,4 +1,4 @@
-# preview-pane-sample-extension
+# Preview Pane Sample Extension
 This is an example of an app that extends Files to provide a file preview for the file type ".files".
 
 Output:
