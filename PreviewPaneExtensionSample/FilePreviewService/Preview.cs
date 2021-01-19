@@ -58,7 +58,6 @@ namespace FilePreviewService
             //var buffer = bytearray.AsBuffer();
             var text = await FileIO.ReadTextAsync(file);
 
-
             var result = await GetEncodedImage();
 
             // in order to be usable by files, images must be encoded into a base64 string, and added as the EncodedImage property

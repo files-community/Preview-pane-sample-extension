@@ -1,4 +1,4 @@
-# preview-pane-sample-extension
+# Preview Pane Sample Extension
 This is an example of an app that extends Files to provide a file preview for the file type ".files".
 
 Output:
@@ -48,6 +48,7 @@ This is an example of a string that can be sent back to Files.
 </controls:MarkdownTextBlock>
 ```
 ### Preview Images
+
 Since images can't be sent in the response, Files allows images to be loaded as Base64 string that represents the images buffer. See the sample service for an example of this.
 This is an
 This is an example of how you would encode your image as a base64 string, and add that to the xaml string.
@@ -74,6 +75,7 @@ var xaml = $"<ScrollViewer xml:space=\"preserve\" xmlns=\"http://schemas.microso
 ```
 
 ### Details
+
 File details are sent as a Json string with the parameter name "details", which is deserialized by Files, and then added to the details list in the preview pane.
 The two Properties you will need for this are "LocalizedName" and "Value" of types ```string``` and ```object```, respectively.
 This is an example of valid Json data that can be used by Files.
@@ -87,4 +89,5 @@ This is an example of valid Json data that can be used by Files.
 ```
 
 ### Specifying file types
+
 Preview extensions can specify the types of files they support by adding them to a json list in a file named ```FileExtensions.json``` in the extension's public folder.
