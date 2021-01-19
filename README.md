@@ -5,7 +5,7 @@ Output:
 ![](screenshots/output.png)
 
 
-### Making your own preview serivce
+## Making your own preview serivce
 
 Support for previews is provided by the service "com.markdownpreview.controlservice". Files locates the name of this service by reading the service property registered in the app manifest. You're manifest should look something like this:
 ```xml  
@@ -28,7 +28,15 @@ Support for previews is provided by the service "com.markdownpreview.controlserv
 ```
 Files also looks at the FileExtensions.json file to get a list of file extensions that the preview service is registered for. If the selected file has an extension listed within this file, then Files will call the extension's service.
 
-## Preview controls
+### Accessing a file
+As part of the request to the preview service, Files sends a token which can be used to redeem a StorageFile without the extensions needing full filesystem access.
+The storage file can redeemed like this:
+```cs
+var message = args.Request.Message;
+StorageFile file = await SharedStorageAccessManager.RedeemTokenForFileAsync(message["token"] as string);
+```
+
+### Preview controls
 Previews are sent as a string containing xaml that is then loaded into the preview pane using the ```XamlReader```. You can define this string as the "preview" parameter in the response. This does have it's limitations, as only controls that are already avaliable to Files can be used. This means that extensions are limited to standard WinUI controls, and controls from the Windows Community Toolkit.
 
 This is an example of a string that can be sent back to Files.
@@ -39,7 +47,8 @@ This is an example of a string that can be sent back to Files.
   </controls:MarkdownTextBlock.Text>
 </controls:MarkdownTextBlock>
 ```
-## Preview Images
+### Preview Images
+
 Since images can't be sent in the response, Files allows images to be loaded as Base64 string that represents the images buffer. See the sample service for an example of this.
 This is an
 This is an example of how you would encode your image as a base64 string, and add that to the xaml string.
@@ -65,7 +74,8 @@ var xaml = $"<ScrollViewer xml:space=\"preserve\" xmlns=\"http://schemas.microso
   </ScrollViewer>
 ```
 
-## Details
+### Details
+
 File details are sent as a Json string with the parameter name "details", which is deserialized by Files, and then added to the details list in the preview pane.
 The two Properties you will need for this are "LocalizedName" and "Value" of types ```string``` and ```object```, respectively.
 This is an example of valid Json data that can be used by Files.
@@ -78,5 +88,6 @@ This is an example of valid Json data that can be used by Files.
 ]
 ```
 
-## Specifying file types
+### Specifying file types
+
 Preview extensions can specify the types of files they support by adding them to a json list in a file named ```FileExtensions.json``` in the extension's public folder.

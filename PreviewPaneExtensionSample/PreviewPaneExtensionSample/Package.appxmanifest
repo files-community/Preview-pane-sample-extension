@@ -45,9 +45,9 @@
       <Extensions>
         <uap3:Extension Category="windows.appExtension">
           <uap3:AppExtension Name="com.files.filepreview"
-                             Id="markdown"
-                             DisplayName="Markdown File Preview"
-                             Description="Adds support for viewing Markdown Files in the preview pane."
+                             Id="sample"
+                             DisplayName="Files Preview Extensions Sample"
+                             Description="This app is a sample extension that provides a preview service to Files."
                              PublicFolder="Public">
             <uap3:Properties>
               <Service>com.markdownpreview.controlservice</Service>

@@ -11,6 +11,7 @@ using System.Web;
 using System.Xml;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -50,19 +51,12 @@ namespace FilePreviewService
             var message = args.Request.Message;
             var returnMessage = new ValueSet();
 
-            // As part of the request, files sends over the file buffer in the form of a byte array
-            var bytearray = message["byteArray"] as byte[];
-            // files also sends the path, too, in case it is needed
-            var path = message["filePath"] as string;
+            // Files sends a shared file access token that can be used to redeem a storage file
 
-            var buffer = bytearray.AsBuffer();
-            var text = "";
+            var file = await SharedStorageAccessManager.RedeemTokenForFileAsync(message["token"] as string);
 
-
-            using (var dataReader = Windows.Storage.Streams.DataReader.FromBuffer(buffer))
-            {
-                text = dataReader.ReadString(buffer.Length);
-            }
+            //var buffer = bytearray.AsBuffer();
+            var text = await FileIO.ReadTextAsync(file);
 
             var result = await GetEncodedImage();
 
